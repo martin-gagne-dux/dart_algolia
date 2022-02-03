@@ -48,8 +48,7 @@ class Algolia {
     return map;
   }
 
-  Future<http.Response> _apiCall(ApiRequestType requestType, String url,
-      {dynamic data}) async {
+  Future<Response> _apiCall(ApiRequestType requestType, String url, {dynamic data}) async {
     // ignore: prefer_function_declarations_over_variables
     final action = (int retry) {
       String host = _hostWrite;
@@ -64,45 +63,37 @@ class Algolia {
       }
       switch (requestType) {
         case ApiRequestType.get:
-          return http.get(
+          return get(
             Uri.parse('$host$url'),
             headers: _headers,
           );
         case ApiRequestType.post:
-          return http.post(
+          return post(
             Uri.parse('$host$url'),
             headers: _headers,
             encoding: Encoding.getByName('utf-8'),
-            body: data != null
-                ? utf8.encode(json.encode(data, toEncodable: jsonEncodeHelper))
-                : null,
+            body: data != null ? utf8.encode(json.encode(data, toEncodable: jsonEncodeHelper)) : null,
           );
         case ApiRequestType.put:
-          return http.put(
+          return put(
             Uri.parse('$host$url'),
             headers: _headers,
             encoding: Encoding.getByName('utf-8'),
-            body: data != null
-                ? utf8.encode(json.encode(data, toEncodable: jsonEncodeHelper))
-                : null,
+            body: data != null ? utf8.encode(json.encode(data, toEncodable: jsonEncodeHelper)) : null,
           );
         case ApiRequestType.patch:
-          return http.patch(
+          return patch(
             Uri.parse('$host$url'),
             headers: _headers,
             encoding: Encoding.getByName('utf-8'),
-            body: data != null
-                ? utf8.encode(json.encode(data, toEncodable: jsonEncodeHelper))
-                : null,
+            body: data != null ? utf8.encode(json.encode(data, toEncodable: jsonEncodeHelper)) : null,
           );
         case ApiRequestType.delete:
-          return http.delete(
+          return delete(
             Uri.parse('$host$url'),
             headers: _headers,
             encoding: Encoding.getByName('utf-8'),
-            body: data != null
-                ? utf8.encode(json.encode(data, toEncodable: jsonEncodeHelper))
-                : null,
+            body: data != null ? utf8.encode(json.encode(data, toEncodable: jsonEncodeHelper)) : null,
           );
       }
     };
@@ -143,8 +134,7 @@ class Algolia {
     return AlgoliaIndexReference._(this, index);
   }
 
-  AlgoliaMultiIndexesReference get multipleQueries =>
-      AlgoliaMultiIndexesReference._(this);
+  AlgoliaMultiIndexesReference get multipleQueries => AlgoliaMultiIndexesReference._(this);
 
   Future<AlgoliaIndexesSnapshot> getIndices() async {
     var response = await _apiCall(
@@ -182,7 +172,7 @@ class Algolia {
     if (events.isEmpty) return;
     final url = '${_insightsHost}events';
     final eventList = events.map((e) => e.toMap()).toList();
-    final response = await http.post(
+    final response = await post(
       Uri.parse(url),
       headers: _headers,
       body: utf8.encode(json.encode({'events': eventList})),

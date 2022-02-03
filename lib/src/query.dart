@@ -71,7 +71,7 @@ class AlgoliaQuery {
     }
 
     print('Marker 5');
-    var response = await algolia._apiCall(
+    Response response = await algolia._apiCall(
       ApiRequestType.post,
       'indexes/$encodedIndex/query',
       data: _parameters,
