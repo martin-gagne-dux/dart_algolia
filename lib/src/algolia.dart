@@ -43,8 +43,6 @@ class Algolia {
       'X-Algolia-Application-Id': applicationId,
       'X-Algolia-API-Key': _apiKey,
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': "*",
-      'Access-Control-Allow-Methods': "POST, GET, OPTIONS, PUT, DELETE, HEAD",
     };
     map.addEntries(extraHeaders.entries);
     return map;
