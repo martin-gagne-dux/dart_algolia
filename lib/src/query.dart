@@ -79,7 +79,15 @@ class AlgoliaQuery {
     print('Marker 6');
     print('response: $response');
     print('body: ${response.body}');
-    Map<String, dynamic> body = json.decode(response.body);
+    Map<String, dynamic> body = {};
+    try {
+      print('decoding body');
+      body = json.decode(response.body);
+      print('decoded body');
+    } catch (e) {
+      print('Error was: $e');
+    }
+
     print('Marker 7');
     if (!(response.statusCode >= 200 && response.statusCode < 300)) {
       print('Marker 8');
