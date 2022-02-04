@@ -78,7 +78,6 @@ class AlgoliaQuery {
     );
     print('Marker 6');
     print('response: $response');
-    print('body: ${response.body}');
     Map<String, dynamic> body = {};
     try {
       print('decoding body');
